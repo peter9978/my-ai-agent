@@ -8,17 +8,43 @@ def calculator(a, b, operation):
     elif operation == "subtract":
         return a - b
 
+def parser(user_input):
+    words = user_input.split()
+
+    numbers = []
+
+    for word in words:
+        clean_word = word.strip("?!.,")
+        if  clean_word.isdigit():
+            numbers.append(int(clean_word))
+
+    for word in words:
+        if word in ["multiply","multiplied"]:
+            operation = "multiply"
+        elif word in ["divide","divided"]:
+            operation = "divide"
+        elif word in ["add","plus"]:
+            operation = "add"
+        elif word in ["subtract","minus"]:
+            operation = "subtract"
+
+    return {
+        "operation": operation,
+        "numbers": numbers
+    }
+
 
 def agent(user_input):
-    new = user_input.split()
+    parsed_data = parser(user_input)
 
-    operation = new[0]
-    a = int(new[1])
-    b = int(new[3])
+    operation = parsed_data["operation"]
+    number = parsed_data["numbers"]
 
-    result = calculator(a, b, operation)
-    return result
+    return calculator(number[0],number[1],operation)
 
+
+result = agent("subtract 100 from 35")
+print(result)
 
 user_input = input("User: ")
 
