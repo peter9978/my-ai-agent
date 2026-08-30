@@ -31,7 +31,7 @@ def parser(user_input):
 
     for word in words:
         clean_word = word.strip("?!.,")
-        
+
         try:
             number = int(clean_word)
             numbers.append(number)
@@ -44,9 +44,11 @@ def parser(user_input):
                     if clean_word in number_words:
                         numbers.append(number_words[clean_word])
 
-    
 
 
+
+
+    operation = None
 
     for word in words:
         if word in ["multiply","multiplied"]:
@@ -66,8 +68,8 @@ def parser(user_input):
           relationship = word
 
 
-    
-   
+
+
 
 
 
@@ -87,6 +89,20 @@ def agent(user_input):
     operation = parsed_data["operation"]
     number = parsed_data["numbers"]
     relationship = parsed_data["relationship"]
+    
+
+
+    if operation is None:
+      return("I don't understand the operation")
+    
+    
+    if len(number) < 2: 
+      return("I need two numbers")
+
+
+    if operation == "divide" and number[1] == 0:
+      return "I can't divide by zero"
+
 
     if relationship == "from":
         return calculator (number[1],number[0],operation)
@@ -99,7 +115,6 @@ def agent(user_input):
 
 
 
-print(agent("subtract ten from two"))
 
 
 
@@ -112,13 +127,11 @@ print(agent("subtract ten from two"))
 
 
 tests = [
-    "add five and ten",
-    "multiply three by four",
-    "subtract ten from two",
-    "divide ten by two",
-    "add 10.5 and 2",
-    "ADD 10 AND 20",
-    "subtract -5 from 10"
+    "hello",
+    "divide 10 by",
+    "divide 10 by 0",
+    "divide 10 by 2",
+    "add 10"
 ]
 
 for test in tests:
