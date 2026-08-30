@@ -1,19 +1,8 @@
 ## Current Version
 
-**V1.3 — Input Validation & Error Handling**
+**V1.4 — Advanced English Number Parser**
 
-The agent can currently:
-
-* Perform addition, subtraction, multiplication, and division
-* Parse natural-language mathematical requests
-* Handle different relationships such as `and`, `by`, `from`, and `to`
-* Recognize integers, decimals, and negative numbers
-* Recognize English number words from zero to ten
-* Handle uppercase and lowercase input
-* Detect missing operations
-* Detect missing numbers
-* Prevent division by zero
-
+The agent can now understand numeric expressions written in both digit and basic English-number form and convert them into structured numbers before calculation.
 
 ## Version History
 
@@ -51,9 +40,3 @@ Daily development notes are stored in the `progress/` directory.
 Next milestone:
 
 **V1.4 — Next agent capability**
-
-## Current Version
-
-**V1.4 — Advanced English Number Parser**
-
-The agent can now understand numeric expressions written in both digit and basic English-number form and convert them into structured numbers before calculation.
