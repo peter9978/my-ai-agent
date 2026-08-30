@@ -1,55 +1,62 @@
 # My AI Agent
 
-A simple AI agent built from scratch using Python.
+A project-first AI agent built from scratch to understand how agents, parsers, logic, and tool use actually work.
 
 ## Current Version
 
-V1.1
+**V1.2 — English Number Parser**
 
-## What it can do
+The agent can currently:
 
-* Parse user input
-* Extract numbers
-* Detect basic arithmetic operations
-* Use a calculator tool
-* Connect the parser to the calculator
+* Perform addition, subtraction, multiplication, and division
+* Parse natural-language mathematical requests
+* Handle different relationships such as `and`, `by`, `from`, and `to`
+* Recognize integers
+* Recognize decimal numbers
+* Recognize negative numbers
+* Handle uppercase/lowercase input
+* Recognize English number words from zero to ten
 
-## Example
-
-Input:
-
-```text
-What is 10 multiplied by 64?
-```
-
-Output:
+### Examples
 
 ```text
-640
+add 10 and 20
+→ 30
+
+multiply 10.5 by 2
+→ 21.0
+
+subtract ten from two
+→ -8
+
+ADD FIVE AND TEN
+→ 15
 ```
 
-## Current Limitation
+## Version History
 
-The parser does not understand the relationship between numbers in some sentences.
+| Version | Capability                       |
+| ------- | -------------------------------- |
+| V1.0    | Basic calculator agent           |
+| V1.1    | Flexible natural-language parser |
+| V1.2    | English number parser            |
 
-Example:
+## Project Philosophy
 
-```text
-subtract 100 from 35
-```
+The project is developed using:
 
-Currently:
+* First Principles Thinking
+* Logic Trees
+* Small experiments
+* Continuous testing
+* Iterative improvement
 
-```text
-65
-```
+The goal is to understand how an AI agent works by building each capability from the ground up rather than relying on frameworks immediately.
 
-Expected:
+## Progress
 
-```text
--65
-```
+Daily development notes are stored in the `progress/` directory.
 
-## Next Goal
+Next milestone:
 
-Improve the parser to understand more natural language patterns.
+**V1.3 — Input validation and graceful error handling**
