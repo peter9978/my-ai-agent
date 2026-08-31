@@ -7,7 +7,8 @@ def calculator(a, b, operation):
         return a + b
     elif operation == "subtract":
         return a - b
-
+    elif operation == "difference":
+        return abs(a - b)
 
 def parser(user_input):
     words = user_input.lower().split()
@@ -46,6 +47,33 @@ def parser(user_input):
         "hundred": 100
     }
 
+
+    operation_words = {
+    "add": "add",
+    "plus": "add",
+    "sum": "add",
+    "total": "add",
+
+    "subtract": "subtract",
+    "minus": "subtract",
+    "difference": "difference",
+
+    "multiply": "multiply",
+    "multiplied": "multiply",
+    "times": "multiply",
+    "product": "multiply",
+
+    "divide": "divide",
+    "divided": "divide",
+    "over": "divide",
+    "quotient": "divide",
+
+    "+": "add",
+    "-": "subtract",
+    "*": "multiply",
+    "/": "divide"
+}
+
     current = 0
 
     for word in words:
@@ -82,14 +110,9 @@ def parser(user_input):
     operation = None
 
     for word in words:
-        if word in ["multiply", "multiplied"]:
-            operation = "multiply"
-        elif word in ["divide", "divided"]:
-            operation = "divide"
-        elif word in ["add", "plus"]:
-            operation = "add"
-        elif word in ["subtract", "minus"]:
-            operation = "subtract"
+        if word in operation_words:
+            operation = operation_words[word]
+
 
     relationship = None
 
@@ -117,23 +140,32 @@ def agent(user_input):
     if len(number) < 2:
         return "I need two numbers"
 
-    if operation == "divide" and number[1] == 0:
-        return "I can't divide by zero"
-
     if relationship == "from":
-        return calculator(number[1], number[0], operation)
+        number.reverse()
 
-    elif relationship in ["by", "and", "to", None]:
-        return calculator(number[0], number[1], operation)
+    if operation == "divide":
+        for next_number in number[1:]:
+            if next_number == 0:
+                return "I can't divide by zero"
+
+    result = number[0]
+
+    for next_number in number[1:]:
+        result = calculator(result, next_number, operation)
+
+    return result
+
+
 
 
 tests = [
-    "what is the sum of 10 and 20",
-    "what is 10 plus 20",
-    "what is 10 times 5",
-    "what is the difference between 50 and 20",
-    "what is 100 divided by 4",
+    "add 10 and 20 and 30",
+    "multiply 2 by 3 and 4",
+    "subtract 100 from 50",
+    "divide 100 by 5",
+    "divide 100 by 5 and 2",
+    "divide 100 by 5 and 0",
 ]
 
 for test in tests:
-    print(test, "->", parser(test))
+    print(test, "->", agent(test))
