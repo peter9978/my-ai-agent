@@ -1,9 +1,18 @@
 ## Current Version
 
-**V1.4 — Advanced English Number Parser**
 
-The agent can now understand numeric expressions written in both digit and basic English-number form and convert them into structured numbers before calculation.
+And in `README.md`, add/update the version history with something along these lines:
 
+```markdown
+### V1.5 - Semantic & Multi-Number Handling
+
+- Added operation normalization
+- Added mathematical symbol support
+- Added difference semantics
+- Added multi-number calculations
+- Added accumulator-based calculation flow
+- Improved division-by-zero validation
+- Expanded automated tests
 ## Version History
 
 ### V1
@@ -33,6 +42,14 @@ The agent can now understand numeric expressions written in both digit and basic
   - `one hundred twenty five` → `125`
 - Added support for separating composed numbers around relationships such as `and`, `from`, `by`, and `to`
 
+### V1.5 - Semantic & Multi-Number Handling
+
+- Added operation normalization
+- Added mathematical symbol support
+- Added difference semantics
+- Added multi-number calculations
+- Added accumulator-based calculation flow
+- Improved division-by-zero validation
 ## Progress
 
 Daily development notes are stored in the `progress/` directory.
