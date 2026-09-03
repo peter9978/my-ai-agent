@@ -9,13 +9,9 @@ def calculator(a, b, operation):
         return a - b
     elif operation == "difference":
         return abs(a - b)
-
-def parser(user_input):
-    words = user_input.lower().split()
-
-    numbers = []
-
-    number_words = {
+    
+    
+number_words = {
         "zero": 0,
         "one": 1,
         "two": 2,
@@ -44,9 +40,96 @@ def parser(user_input):
         "seventy": 70,
         "eighty": 80,
         "ninety": 90,
-        "hundred": 100
+        "hundred": 100,
+        "thousand": 1000,
+        "million": 1000000,
+        "billion": 1000000000
     }
+    
+    
+def parse_number_phrase(words):
+    current = 0
+    total = 0
 
+    for word in words:
+
+        if word == "and":
+            continue
+
+        value = number_words[word]
+
+        if value == 100:
+            current *= 100
+
+        elif value >= 1000:
+            total += current * value
+            current = 0
+
+        else:
+            current += value
+
+    return total + current
+
+
+
+
+print(parse_number_phrase(["one", "thousand"]))
+print(parse_number_phrase(["two", "thousand"]))
+print(parse_number_phrase(["one", "million"]))
+print(parse_number_phrase(["two", "hundred", "fifty", "thousand"]))
+print(parse_number_phrase(["one", "hundred", "and", "twenty"]))
+
+
+    
+    
+def split_operands(words):
+    operands = []
+    current_phrase = []
+
+
+
+    for i, word in enumerate(words):
+        if word == "and":
+            next_word = words[i + 1] if i + 1 < len(words) else None
+
+            if (
+                current_phrase
+                and next_word in number_words
+                and "hundred" in current_phrase
+            ):
+                current_phrase.append(word)
+            else:
+                if current_phrase:
+                    operands.append(current_phrase)
+                    current_phrase = []
+        else:
+            current_phrase.append(word)
+
+    if current_phrase:
+        operands.append(current_phrase)
+
+    return operands
+    
+
+print(split_operands(
+    ["one", "hundred", "and", "twenty"]
+))
+
+print(split_operands(
+    ["one", "hundred", "and", "twenty", "and", "thirty"]
+))
+
+print(split_operands(
+    ["one", "thousand", "and", "two", "thousand"]
+))
+    
+    
+    
+
+def parser(user_input):
+    words = user_input.lower().split()
+
+    numbers = []
 
     operation_words = {
     "add": "add",
@@ -75,7 +158,7 @@ def parser(user_input):
 }
 
     current = 0
-
+    total = 0
     for word in words:
         clean_word = word.strip("?!.,")
 
@@ -84,12 +167,16 @@ def parser(user_input):
 
             if value == 100:
                 current *= 100
+            elif value >= 1000:
+                total += current * value
+                current = 0                
             else:
                 current += value
         elif clean_word in ["and","from","by","to"]:
-            if current != 0:
-                  numbers.append(current)
+            if current != 0 or total != 0:
+                  numbers.append(current + total)
                   current = 0
+                  total = 0
 
         else:
             try:
@@ -104,8 +191,8 @@ def parser(user_input):
                 except ValueError:
                     pass
 
-    if current != 0:
-        numbers.append(current)
+    if current != 0 or total != 0:
+        numbers.append(current + total)
 
     operation = None
 
@@ -159,12 +246,7 @@ def agent(user_input):
 
 
 tests = [
-    "add 10 and 20 and 30",
-    "multiply 2 by 3 and 4",
-    "subtract 100 from 50",
-    "divide 100 by 5",
-    "divide 100 by 5 and 2",
-    "divide 100 by 5 and 0",
+    "multiply one hundred and twenty by two"
 ]
 
 for test in tests:
